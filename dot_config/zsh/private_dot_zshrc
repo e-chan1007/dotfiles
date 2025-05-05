@@ -5,9 +5,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Disable /etc/hosts completion for ssh
-zstyle ':completion:*:*:ssh:*:hosts' hosts
-zstyle ':completion:*:*:ssh:*:*' known-hosts-files /etc/ssh/ssh_known_hosts ~/.ssh/known_hosts
+# SSH Host completion from ~/.ssh/config
+zstyle -e ':completion:*:hosts' osts 'reply=(
+  ${=${${${${(@M)${(f)"$(cat ~/.ssh/config{,.d/*(N)} 2>/dev/null)"}:#Host *}#Host }:#*\**}:#*\?*}}
+)'
+
+fpath+=($ZDOTDIR/completions)
 
 # Start configuration added by Zim install {{{
 #
