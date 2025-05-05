@@ -119,6 +119,8 @@ fi
 if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
   source ${ZIM_HOME}/zimfw.zsh init
 fi
+
+unset _comps
 # Initialize modules.
 source ${ZIM_HOME}/init.zsh
 
