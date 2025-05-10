@@ -1,0 +1,14 @@
+{{ if (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
+#!/bin/sh
+
+PROXY_DIR=${ZDOTDIR:-~/.config/zsh}/wsl2-ssh-agent-proxy
+mkdir -p ${PROXY_DIR}
+curl -sL https://raw.githubusercontent.com/masahide/OmniSSHAgent/refs/heads/main/hack/ubuntu.wsl2-ssh-agent-proxy.sh -o ${PROXY_DIR}/ubuntu.wsl2-ssh-agent-proxy.sh
+chmod +x ${PROXY_DIR}/ubuntu.wsl2-ssh-agent-proxy.sh
+
+# change scripts PROXYCMD_DIR
+# from: PROXYCMD_DIR="${HOME}/${NAME}"
+# to: PROXYCMD_DIR=${ZDOTDIR:-~/.config/zsh}/${NAME}
+sed -i "s|PROXYCMD_DIR=\"\${HOME}/\${NAME}\"|PROXYCMD_DIR=\"\${ZDOTDIR:-~/.config/zsh}/\${NAME}\"|g" ${PROXY_DIR}/ubuntu.wsl2-ssh-agent-proxy.sh
+
+{{ end -}}
