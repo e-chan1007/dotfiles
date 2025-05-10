@@ -154,9 +154,22 @@ unset key
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ${ZDOTDIR:-~}/.p10k.zsh ]] || source ${ZDOTDIR:-~}/.p10k.zsh
 
+export PATH="$PATH:$HOME/.local/bin";
+
 # proto
 export PROTO_HOME="$HOME/.proto";
 export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
 
-export PATH="$PATH:$HOME/.local/bin";
-
+{{ if (or (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) (eq .chezmoi.os "windows")) }}
+# Configure ssh forwarding
+if command -v npiperelay.exe >/dev/null 2>&1; then
+  export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
+  ALREADY_RUNNING=$(ps -auxww | grep -q "[n]piperelay.exe -ei -s //./pipe/openssh-ssh-agent"; echo $?)
+  if [[ $ALREADY_RUNNING != "0" ]]; then
+      if [[ -S $SSH_AUTH_SOCK ]]; then
+          rm $SSH_AUTH_SOCK
+      fi
+      (setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork &) >/dev/null 2>&1
+  fi
+fi
+{{ end }}
