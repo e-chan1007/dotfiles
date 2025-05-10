@@ -164,7 +164,7 @@ export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
 # Configure ssh forwarding
 if command -v npiperelay.exe >/dev/null 2>&1; then
   export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
-  ALREADY_RUNNING=$(ps -auxww | grep -q "[n]piperelay.exe -ei -s //./pipe/openssh-ssh-agent"; echo $?)
+  ALREADY_RUNNING=$(grep -a "" /proc/*/cmdline | grep -q "[n]piperelay.exe -ei -s //./pipe/openssh-ssh-agent"; echo $?)
   if [[ $ALREADY_RUNNING != "0" ]]; then
       if [[ -S $SSH_AUTH_SOCK ]]; then
           rm $SSH_AUTH_SOCK
