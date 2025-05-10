@@ -12,6 +12,13 @@ zstyle -e ':completion:*:hosts' osts 'reply=(
 
 fpath+=($ZDOTDIR/completions)
 
+{{ if eq .chezmoi.os "windows" -}}
+# Add completions for Windows Drives in MSYS2 ZSH
+drives=$(mount | sed -rn 's#^[A-Z]: on /([a-z]).*#\1#p' | tr '\n' ' ')
+zstyle ':completion:*' fake-files /: "/:$drives"
+unset drives
+{{ end -}}
+
 # Start configuration added by Zim install {{{
 #
 # User configuration sourced by interactive shells
@@ -152,3 +159,4 @@ export PROTO_HOME="$HOME/.proto";
 export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
 
 export PATH="$PATH:$HOME/.local/bin";
+
