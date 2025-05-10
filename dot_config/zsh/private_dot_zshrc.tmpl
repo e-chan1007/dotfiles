@@ -164,3 +164,9 @@ export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
 # Configure ssh forwarding
 source $ZDOTDIR/wsl2-ssh-agent-proxy/ubuntu.wsl2-ssh-agent-proxy.sh
 {{ end }}
+{{ if (eq .chezmoi.os "windows") }}
+# Configure ssh forwarding
+if [[ -S /c/Users/$USER/OmniSSHCygwin.sock ]]; then
+  SSH_AUTH_SOCK=/c/Users/$USER/OmniSSHCygwin.sock
+fi
+{{ end }}

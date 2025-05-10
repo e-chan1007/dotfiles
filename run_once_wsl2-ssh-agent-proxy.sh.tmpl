@@ -11,4 +11,5 @@ chmod +x ${PROXY_DIR}/ubuntu.wsl2-ssh-agent-proxy.sh
 # to: PROXYCMD_DIR=${ZDOTDIR:-~/.config/zsh}/${NAME}
 sed -i "s|PROXYCMD_DIR=\"\${HOME}/\${NAME}\"|PROXYCMD_DIR=\"\${ZDOTDIR:-~/.config/zsh}/\${NAME}\"|g" ${PROXY_DIR}/ubuntu.wsl2-ssh-agent-proxy.sh
 
+touch ${PROXY_DIR}/wsl2-ssh-agent-proxy.log
 {{ end -}}
