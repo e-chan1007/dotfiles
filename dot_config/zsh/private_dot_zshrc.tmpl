@@ -159,3 +159,8 @@ export PATH="$PATH:$HOME/.local/bin";
 # proto
 export PROTO_HOME="$HOME/.proto";
 export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
+
+{{ if (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
+# Configure ssh forwarding
+zsh-defer source $ZDOTDIR/wsl2-ssh-agent-proxy/ubuntu.wsl2-ssh-agent-proxy.sh
+{{ end }}
