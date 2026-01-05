@@ -1,3 +1,4 @@
+{{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 
 # If user included in /etc/passwd and its shell is not zsh, change it to zsh
@@ -12,3 +13,4 @@ if [ -f /etc/passwd ]; then
     echo "User $USER not found in /etc/passwd, skipping chsh"
   fi
 fi
+{{ end -}}
