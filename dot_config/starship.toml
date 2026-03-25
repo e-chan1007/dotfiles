@@ -1,0 +1,71 @@
+add_newline = true
+
+format = """
+$os\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$all\
+[\ue0b0](fg:236 bg:none)\
+$fill\
+[\ue0b2](fg:236 bg:none)\
+$cmd_duration\
+$time\
+$line_break\
+$character"""
+
+[os]
+disabled = false
+format = "[ $symbol ](bg:236 fg:255)"
+
+[os.symbols]
+Ubuntu = "\uf31b"
+Debian = "\uf306"
+Macos = "\uf179"
+Windows = "\uf17a"
+Linux = "\uf17c"
+
+[username]
+format = "[ \ue0b1](fg:244 bg:236)[ $user]($style)"
+style_user = "bg:236 fg:180"
+style_root = "bg:236 fg:178 bold"
+show_always = false
+
+[hostname]
+ssh_only = true
+format = "[@$hostname]($style)"
+style = "bg:236 fg:180"
+
+[directory]
+format = "[ \ue0b1](fg:244 bg:236)[ $read_only\uf07c  $path](bg:236 fg:31 bold)"
+read_only = "\uf023 "
+home_symbol = "\uf015  ~"
+truncation_length = 3
+truncate_to_repo = false
+
+[git_branch]
+format = "[ \ue0b1](fg:244 bg:236)[ \uf126 $branch ](bg:236 fg:76)"
+
+[git_status]
+format = "([$all_status$ahead_behind ](bg:236 fg:178))"
+
+[fill]
+symbol = "·"
+style = "fg:240"
+
+[cmd_duration]
+format = "[ \uf252  $duration](bg:236 fg:248)[ \ue0b3](fg:244 bg:236)"
+min_time = 500
+show_milliseconds = false
+
+[time]
+disabled = false
+format = "[ \uf017  $time ](bg:236 fg:66)"
+time_format = "%T"
+
+[character]
+success_symbol = "[\u276f](fg:76)"
+error_symbol = "[\u276f](fg:196)"
+vicmd_symbol = "[\u276e](fg:76)"
