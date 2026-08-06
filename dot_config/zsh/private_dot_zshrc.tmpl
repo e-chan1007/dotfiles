@@ -143,9 +143,14 @@ export PATH="$PATH:$HOME/.local/bin";
 export PROTO_HOME="$HOME/.proto";
 export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
 
-{{ if (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
+
 # Configure ssh forwarding
-(source $ZDOTDIR/wsl2-ssh-agent-proxy/ubuntu.wsl2-ssh-agent-proxy.sh > /dev/null 2>&1 &)
+{{ if (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
+PIPEFERRY_SOURCE="$HOME/.config/pipeferry/ssh-agent.sh"
+if [[ -f "$PIPEFERRY_SOURCE" ]]; then
+  source "$PIPEFERRY_SOURCE"
+fi
 {{ end }}
+
 
 eval "$(starship init zsh)"

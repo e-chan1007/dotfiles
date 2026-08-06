@@ -1,0 +1,4 @@
+{{ if (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
+#!/bin/sh
+curl -fsSL https://raw.githubusercontent.com/masahide/pipeferry/main/install-ssh-agent.sh | sh
+{{ end -}}
